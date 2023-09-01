@@ -107,6 +107,9 @@
 
 
   - ![Жизненный цикл фрагмента](https://i.stack.imgur.com/fRxIQ.png)![Жизненный цикл фрагмента](https://developer.android.com/static/images/guide/fragments/fragment-view-lifecycle.png)
+  
+
+  - CREATED. Фрагмент добавлен в  FragmentManager, вызваны onAttach() и onCreate(). в  onCreate() хорошо бы обработать savedInstanceState. Важно что вью пока не создана и не надо пытатьсяс ней взаимодействовать. Вью появится только в onCreateView() калбеке
 
 - Отличия `commit()`, `commitNow()`, `commitAllowingStateLoss()` и `commitNowAllowingStateLoss()`
   - Если вызвать `commit()` после `onSaveInstanceState()`, система выкинет IllegalStateException ([подробнее о причинах и процессе](https://www.androiddesignpatterns.com/2013/08/fragment-transaction-commit-state-loss.html)). 
