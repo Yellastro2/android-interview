@@ -9,6 +9,7 @@
   - [Broadcasts](#broadcasts)
   - [Custom Views](#custom-views)
   - [ViewModel](#viewmodel)
+  - [Room](#room)
   - [Другое](#%d0%94%d1%80%d1%83%d0%b3%d0%be%d0%b5)
 - [Kotlin](#kotlin)
   - [Inline-функции](#inline-%d1%84%d1%83%d0%bd%d0%ba%d1%86%d0%b8%d0%b8)
@@ -175,6 +176,9 @@
   - Параметр, который мы передаём как `this` при получении `ViewModelProvider` имеет тип `ViewModelStoreOwner`, который как раз и хранит `ViewModelStore`. Если отследить, какие классы наследует наша активити, то видно, что она наследуется от [ComponentActivity](https://android.googlesource.com/platform/frameworks/support/+/8514bc0f4d930b5470435aa365719b2a6a3ad2f3/activity/src/main/java/androidx/activity/ComponentActivity.java "`ComponentActivity`"), которая реализует интерфейс `ViewModelStoreOwner`.
   - Когда активити пересоздаётся, она сохраняет текущий `ViewModelStore`, используя свои методы `onRetainNonConfigurationInstance()` и `getLastCustomNonConfigurationInstance()`, а также статический класс `NonConfigurationInstances`.
   - Также активити имеет `LifecycleEventObserver`, который слушает изменения жизненного цикла и, при уничтожении активити, вызывает `getViewModelStore().clear()`.
+
+## Room
+- Из каких компонентов состоит библиотека Room?
 
 ## Другое
 
