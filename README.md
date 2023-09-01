@@ -111,6 +111,12 @@
   
 
   - CREATED. Фрагмент добавлен в  FragmentManager, вызваны onAttach() и onCreate(). в  onCreate() хорошо бы обработать savedInstanceState. Важно что вью пока не создана и не надо пытатьсяс ней взаимодействовать. Вью появится только в onCreateView() калбеке
+   - После инита вьюхи, ее цикл также переходит в стостояние CREATED, и тут можно восстановить остальные состояния связаные с макетом, срабатывает клб onViewStateRestored()
+  - STARTED - наступает когда фрагмент стартанул и вью точно инициирована. Сейчас сработае  onStart()
+  - RESUMED - анимации перехода отработали и фрагмент доступен для инпута, срабатывает onResume()
+  - При выходе фрагмента с экрана, срабатывает onPause(), и циклы переходят в стейт STARTED. Фрагмент потерял фокус ввода
+  - далее идет переход в стейт CREATED, фрагмент пропадает с экрана. Срабатывают onSaveInstanceState() и onStop(). Их порядок различен в разных апи. До API 28 - onSaveInstanceState() Перед onStop(). На API 28 и больше - наоборот.
+  - ![API PROBLEM](https://developer.android.com/static/images/guide/fragments/stop-save-order.png)
 
 - Отличия `commit()`, `commitNow()`, `commitAllowingStateLoss()` и `commitNowAllowingStateLoss()`
   - Если вызвать `commit()` после `onSaveInstanceState()`, система выкинет IllegalStateException ([подробнее о причинах и процессе](https://www.androiddesignpatterns.com/2013/08/fragment-transaction-commit-state-loss.html)). 
