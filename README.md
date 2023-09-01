@@ -88,6 +88,15 @@
 ## Fragments
 
 - Жизненный цикл Fragment
+  - Для контроля над циклом фрагмента у него есть обьект Lifecycle, доступный по getLifecycle(). В нем представлено текущее состояние фрагмента:
+    - INITIALIZED
+    - CREATED
+    - STARTED
+    - RESUMED
+    - DESTROYED
+  - Обьекту Lifecycle можно добавить слушатель addObserver(LifecycleObserver observer): DefaultLifecycleObserver - у него есть калбек для каждого стейта: или LifecycleEventObserver - с калбеком onStateChanged(LifecycleOwner source,Lifecycle.Event event)
+
+
   - ![Жизненный цикл фрагмента](https://i.stack.imgur.com/fRxIQ.png)
 
 - Отличия `commit()`, `commitNow()`, `commitAllowingStateLoss()` и `commitNowAllowingStateLoss()`
