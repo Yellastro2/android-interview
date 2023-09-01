@@ -117,6 +117,8 @@
   - При выходе фрагмента с экрана, срабатывает onPause(), и циклы переходят в стейт STARTED. Фрагмент потерял фокус ввода
   - далее идет переход в стейт CREATED, фрагмент пропадает с экрана. Срабатывают onSaveInstanceState() и onStop(). Их порядок различен в разных апи. До API 28 - onSaveInstanceState() Перед onStop(). На API 28 и больше - наоборот.
   - ![API PROBLEM](https://developer.android.com/static/images/guide/fragments/stop-save-order.png)
+  - в конце фрагмент в стейте CREATED, вью попадает в стейт DESTROYED. Срабатывает  onDestroyView(). Сейчас нужно очистить все рефы к фрагменту, он должен быть загарбажен мусорщиком
+  - и наконец сам фрагмент получает стейт DESTROYED, вызывает onDestroy() и прекращает свое существование
 
 - Отличия `commit()`, `commitNow()`, `commitAllowingStateLoss()` и `commitNowAllowingStateLoss()`
   - Если вызвать `commit()` после `onSaveInstanceState()`, система выкинет IllegalStateException ([подробнее о причинах и процессе](https://www.androiddesignpatterns.com/2013/08/fragment-transaction-commit-state-loss.html)). 
