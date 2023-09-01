@@ -95,9 +95,18 @@
     - RESUMED
     - DESTROYED
   - Обьекту Lifecycle можно добавить слушатель addObserver(LifecycleObserver observer): DefaultLifecycleObserver - у него есть калбек для каждого стейта: или LifecycleEventObserver - с калбеком onStateChanged(LifecycleOwner source,Lifecycle.Event event)
+  - У фрагмента так же есть собственные калбеки  onCreate(), onStart(), onResume(), onPause(), onStop(), and onDestroy()
+  - View обьект фрагмента имеет еще свой цикл, он доступен по ментодам getViewLifecycleOwner() or getViewLifecycleOwnerLiveData()
+ 
+  - После создания фрагмента, его стейт = INITIALIZED. Далее он должен быть добавлен в FragmentManager, который и будет управлять стейтами фрагмента.  FragmentManager так же вызывает два калбека у фрагмента, связаных с запуском на активити:
+    - onAttach() - при прикреплении к активити. срабатывает ПЕРЕД остальными калбеками, связанными с этой операцией
+    - onDetach() - срабатывает ПОСЛЕ остальных калбеков
+    - Note that these callbacks are unrelated to the FragmentTransaction methods attach() and detach(). For more information on these methods, see Fragment transactions.
+    - Caution: Avoid reusing Fragment instances after they are removed from the FragmentManager. While the fragment handles its own internal state cleanup, you might inadvertently carry over your own state into the reused instance.
+ - Состояние фрагмента не может быть впереди как бы родительского компонента (активити или другого фрага). Например родительское активити должна стартовать раньше чем фрагмент. А стопиться должен сначала фрагмент, потом родитель
 
 
-  - ![Жизненный цикл фрагмента](https://i.stack.imgur.com/fRxIQ.png)
+  - ![Жизненный цикл фрагмента](https://i.stack.imgur.com/fRxIQ.png)![Жизненный цикл фрагмента](https://developer.android.com/static/images/guide/fragments/fragment-view-lifecycle.png)
 
 - Отличия `commit()`, `commitNow()`, `commitAllowingStateLoss()` и `commitNowAllowingStateLoss()`
   - Если вызвать `commit()` после `onSaveInstanceState()`, система выкинет IllegalStateException ([подробнее о причинах и процессе](https://www.androiddesignpatterns.com/2013/08/fragment-transaction-commit-state-loss.html)). 
