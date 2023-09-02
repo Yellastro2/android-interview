@@ -60,7 +60,9 @@
     B: *(обратный переход)* onPause
     A: onRestart, onStart, onResume
     B: onStop, onDestroy
-   ![иллюстрация процесса](https://lh5.googleusercontent.com/-MMX3o4pdsd0/ToybUtq-EFI/AAAAAAAAAbw/ri5MQ1Jg5sI/s800/20111005_L0024_L_TwoActSchema.jpg) 
+   ![иллюстрация процесса](https://lh5.googleusercontent.com/-MMX3o4pdsd0/ToybUtq-EFI/AAAAAAAAAbw/ri5MQ1Jg5sI/s800/20111005_L0024_L_TwoActSchema.jpg)
+
+- `OnPause()` вызывается при потере фокуса активити. но это не значит что в этом калбеке нужно останавливать все процессы. В многооконном режиме этот калбек срабатывает когда юзер выбирает другое окно, но наша активити до сих пор на экране и ожидается что на ней будут дальше происходить вещи
 
 - Когда `onDestroy()` вызывается без `onPause()` и `onStop()`?
   - Если активити закрывается через метод `finish()` до начала onStart и onResume.
