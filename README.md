@@ -7,6 +7,7 @@
   - [Content provider](#content-provider)
   - [Services](#services)
   - [Broadcasts](#broadcasts)
+  - [View](#view)
   - [Custom Views](#custom-views)
   - [ViewModel](#viewmodel)
   - [Room](#room)
@@ -175,6 +176,36 @@ android:name="android.allow_multiple_resumed_activities" android:value="true" />
   2. Apps can continue to register for explicit broadcasts in their manifests.
   3. Apps can use Context.registerReceiver() at runtime to register a receiver for any broadcast, whether implicit or explicit.
   4. Broadcasts that require a signature permission are exempted from this restriction, since these broadcasts are only sent to apps that are signed with the same certificate, not to all the apps on the device. 
+
+## View
+- У вьюх есть свой жизненный цикл.
+
+  
+- ![view lifecycle](https://miro.medium.com/v2/resize:fit:720/0*cHmlPwPvhWJ15zU3)
+
+
+- `onAttachedToWindow()` вьюха получает экран для существования, можно грузить ресурсы или назанчать лиснры
+- onDetachedFromWindow() прекращение работы вью, нужно остановить всю деятельность. Вью удалили из родит. контейнера, или активити уничтожена
+- onFinishInflate() сработает когда все дочерние вью добавлены
+
+- Большинство вьюх являются ViewGroup, и имеют дочерние вьюхи. Measure & Layout калбеки цикла вызываются с короневой вью и вызывают у дочерних. Так надо что бы получить результат дочерних вьюх и лучше понимать собсв. конфигурацию - размер и тп
+- onMeasure(int widthMeasureSpec, int heightMeasureSpec) решается размер вью
+  - MeasureSpec - требование к размеру вьюхи от родителя. состоит из размера и мода
+  - MeasureSpec.EXACTLY : значит размер должен быть только такой
+  - MeasureSpec.AT_MOST : можно любой размер не больше указанного
+  - MeasureSpec.UNSPECIFIED: можно вообще любой размер
+ 
+- onLayout() определение положения вьюх
+- onDraw(Canvas canvas) отрисовка вью. Вызывается на GPU потоке. Или нет. Но вызывается покадрово, так что осторожнее с нагрузкой
+- invalidate() срабатывает при изменении внешнего вида вью
+- requestLayout() вызывает по новой onLayout() и onDraw(), используется для изменений параметров размера_позиции
+- `onSaveInstanceState() -> Parcelable` можно юзать для сохранения инфы между стейтами вьюх. Ток надо реализовать свой BaseSavedState, добавить его в Bundle и вернуть в этом методе.
+- onRestoreInstanceState(Parcelable state) в state будет лежать BaseSavedState с заполненными инфой полями, если его ранее сохраняли
+
+
+
+
+
 
 ## Custom Views
 
