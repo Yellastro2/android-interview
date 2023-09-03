@@ -18,6 +18,7 @@
     - AtomicReferenceFieldUpdater
     - AtomicMarkableReference
     - AtomicStampedReference
+  - Использование атомарных типов чаще всего более производительно чем блокировки так как операции CAS реализуются на уровне машинных инструкций, и не приостанавливают потоки
 • 
 • 
 • 
